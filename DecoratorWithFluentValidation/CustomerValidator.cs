@@ -17,17 +17,17 @@ namespace DecoratorWithFluentValidation
 		}
 	}
 
-	public class CustomerAnotherValidator : AbstractValidator<Customer>
+	public class AnotherCustomerValidator : AbstractValidator<Customer>
 	{
-		public CustomerAnotherValidator()
+		public AnotherCustomerValidator()
 		{
 			RuleFor(customer => customer.CVV).NotNull();
 		}
 	}
 
-	public class CustomerOneMoreValidator : AbstractValidator<Customer>
+	public class OneMoreCustomerValidator : AbstractValidator<Customer>
 	{
-		public CustomerOneMoreValidator()
+		public OneMoreCustomerValidator()
 		{
 			RuleFor(customer => customer.Forename).Length(5, 8);
 		}

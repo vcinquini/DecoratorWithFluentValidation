@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using FluentValidation;
+using FluentValidation.Results;
 using System;
 
 namespace DecoratorWithFluentValidation
@@ -8,9 +9,16 @@ namespace DecoratorWithFluentValidation
 		static void Main(string[] args)
 		{
 			Customer customer = new Customer() { Forename = "Pepe", Surname = "", CVV = "600" };
+
+
+			OneMoreCustomerValidator validator1 = new OneMoreCustomerValidator();
+			ValidationResult result1 = validator1.Validate<Customer>(customer);
+			DisplayResults(result1);
+
+
 			Component c = new ConcreteComponent(new CustomerValidator());
-			ConcreteDecorator d1 = new ConcreteDecorator(new CustomerAnotherValidator());
-			ConcreteDecorator d2 = new ConcreteDecorator(new CustomerOneMoreValidator());
+			ConcreteDecorator d1 = new ConcreteDecorator(new AnotherCustomerValidator());
+			ConcreteDecorator d2 = new ConcreteDecorator(new OneMoreCustomerValidator());
 
 			// Link decorators
 			d1.SetComponent(c);

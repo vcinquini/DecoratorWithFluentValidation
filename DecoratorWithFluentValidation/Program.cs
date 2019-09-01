@@ -15,11 +15,11 @@ namespace DecoratorWithFluentValidation
 			ValidationResult result = validator1.Validate<Customer>(customer);
 			DisplayResults(result);
 
-			CustomerAnotherValidator validator2 = new CustomerAnotherValidator();
+			AnotherCustomerValidator validator2 = new AnotherCustomerValidator();
 			result = validator2.Validate<Customer>(customer);
 			DisplayResults(result);
 
-			CustomerOneMoreValidator validator3 = new CustomerOneMoreValidator();
+			OneMoreCustomerValidator validator3 = new OneMoreCustomerValidator();
 			result = validator3.Validate<Customer>(customer);
 			DisplayResults(result);
 		}
