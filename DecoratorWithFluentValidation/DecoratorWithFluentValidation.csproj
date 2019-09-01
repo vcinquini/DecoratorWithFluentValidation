@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <StartupObject>DecoratorWithFluentValidation.Program2</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="fluentvalidation" Version="8.4.0" />
+  </ItemGroup>
+
+</Project>
