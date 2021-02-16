@@ -10,8 +10,8 @@ namespace DecoratorWithFluentValidation
 	{
 		public CustomerValidator()
 		{
-			RuleFor(customer => customer.Forename).NotNull();
-			RuleFor(customer => customer.Surname).NotNull();
+			RuleFor(customer => customer.FirstName).NotNull();
+			RuleFor(customer => customer.LastName).NotNull();
 			RuleFor(customer => customer.Address).NotNull();
 			RuleFor(customer => customer.Id).GreaterThan(0);
 		}
@@ -21,7 +21,7 @@ namespace DecoratorWithFluentValidation
 	{
 		public AnotherCustomerValidator()
 		{
-			RuleFor(customer => customer.CVV).NotNull();
+			RuleFor(customer => customer.Card).NotNull();
 		}
 	}
 
@@ -29,7 +29,7 @@ namespace DecoratorWithFluentValidation
 	{
 		public OneMoreCustomerValidator()
 		{
-			RuleFor(customer => customer.Forename).Length(5, 8);
+			RuleFor(customer => customer.FirstName + customer.LastName).Length(10, 100);
 		}
 	}
 }

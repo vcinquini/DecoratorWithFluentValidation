@@ -4,27 +4,16 @@ using System;
 
 namespace DecoratorWithFluentValidation
 {
-	class Program2
+	class Program_
 	{
 		static void Main(string[] args)
 		{
-			Customer customer = new Customer() { Forename = "Pepe", Surname = "", CVV = "600" };
+			Customer customer = new Customer() { FirstName = "Pepe", LastName = "" };
 
 
-			OneMoreCustomerValidator validator1 = new OneMoreCustomerValidator();
-			ValidationResult result1 = validator1.Validate<Customer>(customer);
-			DisplayResults(result1);
+			OneMoreCustomerValidator validator = new OneMoreCustomerValidator();
+			ValidationResult result = validator.Validate<Customer>(customer);
 
-
-			Component c = new ConcreteComponent(new CustomerValidator());
-			ConcreteDecorator d1 = new ConcreteDecorator(new AnotherCustomerValidator());
-			ConcreteDecorator d2 = new ConcreteDecorator(new OneMoreCustomerValidator());
-
-			// Link decorators
-			d1.SetComponent(c);
-			d2.SetComponent(d1);
-
-			ValidationResult result = d2.ValidateCustomer(customer);
 
 			if (!result.IsValid)
 			{
@@ -32,6 +21,7 @@ namespace DecoratorWithFluentValidation
 			}
 			else
 			{
+				Console.ForegroundColor = ConsoleColor.Green;
 				Console.WriteLine("Uh-huuuu!!!");
 			}
 		}
@@ -52,11 +42,6 @@ namespace DecoratorWithFluentValidation
 					Console.ForegroundColor = ConsoleColor.Red;
 					Console.WriteLine(failure.ErrorMessage);
 				}
-			}
-			else
-			{
-				Console.ForegroundColor = ConsoleColor.Green;
-				Console.WriteLine("Uh-huuuu!!!");
 			}
 			Console.ForegroundColor = currentColor;
 		}

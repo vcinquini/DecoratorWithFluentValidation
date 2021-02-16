@@ -8,38 +8,61 @@ namespace DecoratorWithFluentValidation
 	{
 		static void Main(string[] args)
 		{
+			Customer customer = new Customer() 
+			{
+				Id = 1, 
+				FirstName = "Tiffany", 
+				LastName = "Townsend", 
+				Address = "22 Acacia Ave.",
+				Card = new Card
+				{
+					CardHolder = "Katherine Roberts",
+					CardNumber = "4455 2646 8546 0879",
+					CVV = "654",
+					ExpirationDate = "1/2024"
+				}
+			};
 
-			Customer customer = new Customer() { Forename = "Pepe", Surname = "", CVV = "600" };
 
-			CustomerValidator validator1 = new CustomerValidator();
-			ValidationResult result = validator1.Validate<Customer>(customer);
-			DisplayResults(result);
+			Component<Customer> c = new ConcreteComponent<Customer>(new CustomerValidator());
+			ConcreteDecorator<Customer> d1 = new ConcreteDecorator<Customer>(new AnotherCustomerValidator());
+			ConcreteDecorator<Customer> d2 = new ConcreteDecorator<Customer>(new OneMoreCustomerValidator());
+			ConcreteDecorator<Customer> d3 = new ConcreteDecorator<Customer>(new CardValidator());
 
-			AnotherCustomerValidator validator2 = new AnotherCustomerValidator();
-			result = validator2.Validate<Customer>(customer);
-			DisplayResults(result);
+			// Link decorators
+			d1.SetComponent(c);
+			d2.SetComponent(d1);
+			d3.SetComponent(d2);
 
-			OneMoreCustomerValidator validator3 = new OneMoreCustomerValidator();
-			result = validator3.Validate<Customer>(customer);
-			DisplayResults(result);
-		}
-
-		private static void DisplayResults(ValidationResult result)
-		{
-			ConsoleColor currentColor = Console.ForegroundColor;
+			ValidationResult result = d3.Validate(customer);
 
 			if (!result.IsValid)
 			{
-				Console.ForegroundColor = ConsoleColor.Red;
-				foreach (var failure in result.Errors)
-				{
-					Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
-				}
+				DisplayResults(result);
 			}
 			else
 			{
 				Console.ForegroundColor = ConsoleColor.Green;
 				Console.WriteLine("Uh-huuuu!!!");
+			}
+		}
+
+		private static void DisplayResults(ValidationResult result)
+		{
+			ConsoleColor currentColor = Console.ForegroundColor;
+			if (!result.IsValid)
+			{
+				foreach (var failure in result.Errors)
+				{
+					Console.ForegroundColor = ConsoleColor.Green;
+					Console.Write("Property ");
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.Write(failure.PropertyName);
+					Console.ForegroundColor = ConsoleColor.Green;
+					Console.Write(" failed validation. Error was: ");
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine(failure.ErrorMessage);
+				}
 			}
 			Console.ForegroundColor = currentColor;
 		}

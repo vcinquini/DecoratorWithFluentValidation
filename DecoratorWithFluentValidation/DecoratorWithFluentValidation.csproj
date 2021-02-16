@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <StartupObject>DecoratorWithFluentValidation.Program2</StartupObject>
+    <TargetFramework>net5.0</TargetFramework>
+    <StartupObject>DecoratorWithFluentValidation.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
