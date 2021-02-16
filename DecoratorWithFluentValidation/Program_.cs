@@ -12,7 +12,7 @@ namespace DecoratorWithFluentValidation
 
 
 			OneMoreCustomerValidator validator = new OneMoreCustomerValidator();
-			ValidationResult result = validator.Validate<Customer>(customer);
+			ValidationResult result = validator.Validate(customer);
 
 
 			if (!result.IsValid)

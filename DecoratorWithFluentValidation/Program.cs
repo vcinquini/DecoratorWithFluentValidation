@@ -22,7 +22,20 @@ namespace DecoratorWithFluentValidation
 					ExpirationDate = "1/2024"
 				}
 			};
-
+			Customer failed = new Customer()
+			{
+				Id = 0,
+				FirstName = "",
+				LastName = "",
+				Address = "",
+				Card = new Card
+				{
+					CardHolder = "",
+					CardNumber = "",
+					CVV = "",
+					ExpirationDate = ""
+				}
+			};
 
 			Component<Customer> c = new ConcreteComponent<Customer>(new CustomerValidator());
 			ConcreteDecorator<Customer> d1 = new ConcreteDecorator<Customer>(new AnotherCustomerValidator());
@@ -35,6 +48,7 @@ namespace DecoratorWithFluentValidation
 			d3.SetComponent(d2);
 
 			ValidationResult result = d3.Validate(customer);
+			//ValidationResult result = d3.Validate(failed);
 
 			if (!result.IsValid)
 			{
@@ -43,7 +57,7 @@ namespace DecoratorWithFluentValidation
 			else
 			{
 				Console.ForegroundColor = ConsoleColor.Green;
-				Console.WriteLine("Uh-huuuu!!!");
+				Console.WriteLine("All validations has been passed!!!");
 			}
 		}
 
